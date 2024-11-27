@@ -1,0 +1,61 @@
+// JavaScript to enhance interactivity for the Dirt Bikes website
+
+// Navigation Scroll
+const navLinks = document.querySelectorAll('nav ul li a');
+navLinks.forEach(link => {
+    link.addEventListener('click', (event) => {
+        event.preventDefault();
+        const targetId = event.target.getAttribute('href').slice(1);
+        const targetElement = document.getElementById(targetId);
+        if (targetElement) {
+            targetElement.scrollIntoView({ behavior: 'smooth' });
+        }
+    });
+});
+
+// Dynamic Product Rendering
+const productsSection = document.getElementById('products');
+const productData = [
+    { name: 'Model X', description: 'High-performance dirt bike for all terrains.', link: '#' },
+    { name: 'Model Y', description: 'Lightweight and durable, perfect for beginners.', link: '#' },
+    { name: 'Model Z', description: 'Advanced features for professional riders.', link: '#' }
+];
+
+const productContainer = document.createElement('div');
+productContainer.classList.add('product-list');
+
+productData.forEach(product => {
+    const productElement = document.createElement('div');
+    productElement.classList.add('product');
+
+    productElement.innerHTML = `
+        <h3>${product.name}</h3>
+        <p>${product.description}</p>
+        <a href="${product.link}" class="btn">View More</a>
+    `;
+
+    productContainer.appendChild(productElement);
+});
+
+productsSection.appendChild(productContainer);
+
+// Contact Form Submission
+const contactForm = document.querySelector('form');
+contactForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+
+    const formData = new FormData(contactForm);
+    const userMessage = {
+        name: formData.get('name'),
+        email: formData.get('email'),
+        message: formData.get('message')
+    };
+
+    console.log('Message Sent:', userMessage);
+    alert('Thank you for reaching out! We will get back to you soon.');
+    contactForm.reset();
+});
+
+// Blog Section Placeholder
+const blogSection = document.getElementById('blog');
+blogSection.innerHTML += '<p>More exciting news coming soon! Stay tuned!</p>';
